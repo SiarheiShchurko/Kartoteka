@@ -32,9 +32,9 @@ class SentMailServices: UIViewController {
     mailComposeVC.setToRecipients(["pridemc@yandex.ru"])
         mailComposeVC.setSubject("Запрос через приложение Картотека IOS")
         mailComposeVC.setMessageBody("Cообщение: \(self.message)\n Имя клиента: \(self.name)\n Емейл клиента: \(self.email)", isHTML: false)
-        print(name)
-        print(email)
-        print(message)
+        //print(name)
+       // print(email)
+       // print(message)
     return mailComposeVC
         
     }

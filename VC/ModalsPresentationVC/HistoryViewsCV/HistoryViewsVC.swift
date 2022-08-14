@@ -8,7 +8,7 @@
 import UIKit
 
 class HistoryViewsVC: UIViewController {
-    
+    var rootViewModel: RootProtokol = RootVM()
     var cell = HistoryViewTableVCell()
     
     @IBOutlet private weak var titleHistoryLabel: UILabel!
@@ -61,7 +61,7 @@ extension HistoryViewsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if let unp = Int(client[indexPath.row].unp ?? "0") {
-            RootVC.unp = unp
+            RootVM.unp = unp
         }
         open(client[indexPath.row])
     }

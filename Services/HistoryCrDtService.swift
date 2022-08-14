@@ -43,6 +43,7 @@ import CoreData
         //MARK: - Method save information in  Data Base
       static func saveDataBaseMethod(_ inf: EgrResponse) {
           HistoryCrDtService.mainContext.perform {
+              
             //MARK - name for new object
               let request = History.fetchRequest()
               if let fullDataArray = try? HistoryCrDtService.mainContext.fetch(request).self {

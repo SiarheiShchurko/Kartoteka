@@ -9,7 +9,7 @@ import UIKit
 
 
 
-print("hello)
+
 //MARK - setup yeallow view. Color and Size
 func setColorSize(_ view: UIView) {
     view.backgroundColor = yeallowCorporativeColor
@@ -71,17 +71,17 @@ func setupForbuttonsScreenSize(_ button: UIButton) {
 
 
 //Mark - func for setup countryLabel in second textField
-func setupForCountrysList(info: Settings, label: UILabel) {
-    let notActive = " (Недоступно)"
-    let country = "Беларусь"
-    if info.countryChanged == country || label.text == country {
-        label.textColor = .blue
-    } else {
-        label.text! += notActive
-        label.textColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.5)
-        
-    }
-}
+//func setupForCountrysList(info: Settings, label: UILabel) {
+//    let notActive = " (Недоступно)"
+//    let country = "Беларусь"
+//    if info.countryChanged == country || label.text == country {
+//        label.textColor = .blue
+//    } else {
+//        label.text! += notActive
+//        label.textColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.5)
+//        
+//    }
+//}
 
 
 

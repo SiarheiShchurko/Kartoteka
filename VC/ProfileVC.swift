@@ -117,6 +117,7 @@ class ProfileVC: UIViewController {
             element.isEnabled = true
         }
     }
+ 
     
     func designButtonForLoadDisplay() {
         let isEmpty = (tfNameOut.text?.isEmpty ?? true || tfSecondNameOut.text?.isEmpty ?? true || tfActualOut.text?.isEmpty ?? true)

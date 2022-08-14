@@ -10,6 +10,7 @@ import UIKit
 
 final class NetworkServiceFind {
     
+    
     var networkService = NetworkService()
     
     var token: String {
@@ -21,7 +22,7 @@ final class NetworkServiceFind {
     let dateFormatter = DateFormatter()
     
     func loadInfo(_ complition: @escaping (FullResponse) -> Void) {
-        if let unp = RootVC.unp {
+        if let unp = RootVM.unp {
             guard let url = URL(string: "https://api.kartoteka.by/summary/\(unp)?access-token=\(token)") else { return }
            
             var request = URLRequest(url: url)

@@ -15,6 +15,7 @@ enum ObtainClientsInform {
 }
 
 class NetworkService {
+   
     var searchVC: SearchResultVC?
     var token: String {
         let userDefaults = UserDefaults.standard
@@ -27,7 +28,8 @@ class NetworkService {
     var result: ObtainClientsInform = .outOfStock
     func loadInfo(_ complition: @escaping (ObtainClientsInform) -> Void) {
   
-        if let unp = RootVC.unp {
+        if let unp = RootVM.unp {
+            print("Look at me now \(unp)")
             var result: ObtainClientsInform = .outOfStock
             guard let url = URL(string: "https://api.kartoteka.by/egr/\(unp)?access-token=\(token)") else { return }
             var request = URLRequest(url: url)
@@ -54,7 +56,7 @@ class NetworkService {
                             complition(result)
                         }
                         HistoryCrDtService.saveDataBaseMethod(infoEGR)
-                        
+                       
                     } catch { result = .failure(error: error)
                         DispatchQueue.main.async {
                             complition(result) }
@@ -64,15 +66,11 @@ class NetworkService {
                     complition(result) }
                 }
             }.resume()
-        } else {
-            DispatchQueue.main.async {
-                complition(self.result) }
-            }
+        }
     }
-        
-    }
+}
     
-    
+
     
    
     
