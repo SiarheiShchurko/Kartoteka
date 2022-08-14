@@ -9,7 +9,7 @@ import UIKit
 
 
 
-
+print("hello)
 //MARK - setup yeallow view. Color and Size
 func setColorSize(_ view: UIView) {
     view.backgroundColor = yeallowCorporativeColor
