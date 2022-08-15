@@ -18,9 +18,10 @@ class NewsVC: UIViewController {
         didSet {
             tableViewOut.dataSource = self
             tableViewOut.delegate = self
-            
+         
         }
     }
+    
     @IBOutlet private weak var headerView: UIView!
     @IBOutlet private weak var newsLabelOut: UILabel! {
         didSet {
