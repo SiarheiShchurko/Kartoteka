@@ -29,5 +29,4 @@ final class NewsVM: NewsProtocol {
         guard let url = link.url else { return }
         UIApplication.shared.open(url)
     }
-    
 }
