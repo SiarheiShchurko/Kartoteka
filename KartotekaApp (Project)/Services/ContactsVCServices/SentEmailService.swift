@@ -9,16 +9,22 @@
 import UIKit
 import MessageUI
 
+struct ModelUser {
+    var name: String?
+    var email: String?
+    var message: String?
+}
+
 class SentMailServices: UIViewController {
     var name = ""
     var email = ""
     var message = ""
     
     
-    func sentMessage(_ name: UITextField, _ email: UITextField, _ message: UITextField) {
-        self.name = name.text ?? ""
-        self.email = email.text ?? ""
-        self.message = message.text ?? ""
+    func sentMessage(_ userInfo: ModelUser) {
+        self.name = userInfo.name ?? "."
+        self.email = userInfo.email ?? "."
+        self.message = userInfo.message ?? "."
     let mailComposeViewController = configureMailComposer()
         if MFMailComposeViewController.canSendMail() {
             self.present(mailComposeViewController, animated: true, completion: nil)
@@ -32,9 +38,9 @@ class SentMailServices: UIViewController {
     mailComposeVC.setToRecipients(["pridemc@yandex.ru"])
         mailComposeVC.setSubject("Запрос через приложение Картотека IOS")
         mailComposeVC.setMessageBody("Cообщение: \(self.message)\n Имя клиента: \(self.name)\n Емейл клиента: \(self.email)", isHTML: false)
-        //print(name)
-       // print(email)
-       // print(message)
+        print(name)
+        print(email)
+        print(message)
     return mailComposeVC
         
     }

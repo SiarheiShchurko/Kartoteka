@@ -8,18 +8,25 @@
 import UIKit
 import MessageUI
 import MapKit
+
+
 class ContactsCompanyVC: UIViewController  {
-    private var notificationService = NotiService()
-    private var mapService = MapService()
-    private var sentEmailService = SentMailServices()
+   
+    private var contactsModel: ContactsProtocol = ContactsVM()
     
-    @IBOutlet weak var mapOut: MKMapView!
+    
+    @IBOutlet weak var mapOut: MKMapView! {
+        didSet { contactsModel.mapService(mapOut) }
+    }
+    
     @IBOutlet weak var firstBlockOut: UIView!
     @IBOutlet weak var scrollViewOut: UIScrollView!
-    @IBOutlet private weak var headerView: UIView!
+    @IBOutlet private weak var headerView: UIView! {
+        didSet { setColorSize(headerView)}
+    }
+    
     @IBOutlet private weak var contactsLabelOut: UILabel!
-    
-    
+
     //MARK - Views groupOutlets. Changed corner radius.
     @IBOutlet var viewsCollectionOut: [UIView]! {
         didSet { viewsCollectionOut.forEach({ elementView in
@@ -56,22 +63,18 @@ class ContactsCompanyVC: UIViewController  {
         didSet { setupForbuttonsScreenSize(firstBlockButtonOut) }
     }
     
-    //MARK - FirstBlockViews - Label Font settings
+    //MARK: - FirstBlockViews. Label Font settings. We have 3 variant fonts. Header - Times Roman. Start words in row - system bold. Other words who not include in array writing standart text.
     @IBOutlet var labelsCollectionOut: [UILabel]! {
-        didSet {
-            labelsCollectionOut.forEach({label in
+        didSet { labelsCollectionOut.forEach({label in
                setupForLabelScreenSize(label)
                 let arrayBoldTitle = ["Контакты", "Отдел продаж:", "Бухгалтерия:", "Viber/Telegram:", "Сайт:", "E-mail:", "Время работы", "Наши реквизиты", "Понедельник-пятница:", "Обед:", "Выходные:", "Адрес:", "Счет:", "БИК/BIC:", "Адрес банка:", "Мы здесь"]
                 for item in arrayBoldTitle {
                     if label.text == "Контакты" ||
                        label.text == "Время работы" ||
                        label.text == "Наши реквизиты" {
-                        label.font = UIFont.init(name: "Times New Roman", size: label.bounds.size.height / 4.0)
+                       label.font = UIFont.init(name: "Times New Roman", size: label.bounds.size.height / 4.0)
                     } else if label.text == item {
-                        label.font = UIFont.systemFont(ofSize: label.bounds.size.height / standartFontSize, weight: .bold)
-                    }
-                }
-            })
+                        label.font = UIFont.systemFont(ofSize: label.bounds.size.height / standartFontSize, weight: .bold) } } })
         }
     }
   
@@ -80,7 +83,7 @@ class ContactsCompanyVC: UIViewController  {
           view.endEditing(true)
           
   }
-    
+    //MARK: Notification for keyboard.
      func registerForKeyboardNotications() {
         NotificationCenter.default.addObserver(self, selector: #selector(kbWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(kbWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -101,10 +104,8 @@ class ContactsCompanyVC: UIViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setColorSize(headerView)
         tabBarController?.tabBar.backgroundColor = .systemBackground
         view.backgroundColor = yeallowCorporativeColor
-        mapService.mapService(mapOut)
         registerForKeyboardNotications()
     }
     
@@ -112,9 +113,7 @@ class ContactsCompanyVC: UIViewController  {
         removeKeyBoardNotifications()
     }
     
-
-    
-    //MARK - Work TF-collections. Editingchanged for enabled "sent message" button
+    //MARK: Action - Work TF-collections. Editingchanged for enabled "sent message" button
     @IBAction func tfCollectionsAct() {
         let isEmpty = (nameTextFieldOut.text?.isEmpty ?? true) ||
         (emailTextFieldOut.text?.isEmpty ?? true) || (messageTextFieldOut.text?.isEmpty ?? true)
@@ -122,24 +121,27 @@ class ContactsCompanyVC: UIViewController  {
 }
 
     
-    //Email sending
+    //MARK: Action - Email sending
     @IBAction private func sendMessageAct(_ sender: UIButton) {
-        sentEmailService.sentMessage(nameTextFieldOut, emailTextFieldOut, messageTextFieldOut)
-        
+        //MARK: Save data entered by user in struct
+        contactsModel.user = ModelUser.init(name: nameTextFieldOut.text, email: emailTextFieldOut.text, message: messageTextFieldOut.text)
+        //MARK: Call emailService func
+        contactsModel.sentMessage()
+        //MARK: Removed all text out from textField
         nameTextFieldOut.text?.removeAll()
         emailTextFieldOut.text?.removeAll()
         messageTextFieldOut.text?.removeAll()
         firstBlockButtonOut.isEnabled = false
+        //MARK: Alert
         let alert = UIAlertController(title: "Cообщение отправлено", message: nil, preferredStyle: .alert)
         let buttonOk = UIAlertAction(title: "Ok", style: .default) { _ in
             alert.dismiss(animated: true)}
             alert.addAction(buttonOk)
             present(alert, animated: true)
         }
-
-
 }
 
+//MARK: Delegate methods for TF
 extension ContactsCompanyVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {  ///Этот метод срабатывает после нажатие на кнопку "enter/return".
         if nameTextFieldOut == textField { emailTextFieldOut.becomeFirstResponder() ///После нажатия на enter/return - FirstResponderом будет secondOutlet, соотвтетственно курсор будет перемещен на второй текст филд.
