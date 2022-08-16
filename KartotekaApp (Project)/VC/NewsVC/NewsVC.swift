@@ -13,6 +13,8 @@ struct ModalNews {
     var url: URL?
 }
 
+
+
 class NewsVC: UIViewController {
     @IBOutlet private weak var tableViewOut: UITableView! {
         didSet {
@@ -22,7 +24,9 @@ class NewsVC: UIViewController {
         }
     }
     
-    @IBOutlet private weak var headerView: UIView!
+    @IBOutlet private weak var headerView: UIView! {
+        didSet { setColorSize(headerView) }
+    }
     @IBOutlet private weak var newsLabelOut: UILabel! {
         didSet {
             newsLabelOut.text = "Новости"
@@ -42,7 +46,7 @@ class NewsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setColorSize(headerView)
+       
     }
 }
 //MARK - Method for open news link
