@@ -7,6 +7,9 @@
 
 import UIKit
 
+
+
+
 //MARK - setup yeallow view. Color and Size
 func setColorSize(_ view: UIView) {
     view.backgroundColor = yeallowCorporativeColor
@@ -82,18 +85,16 @@ func setupForbuttonsScreenSize(_ button: UIButton) {
 
 
 
-func tfPlaceholderSet(_ textFild: UITextField!) {
-    var profile: ProfileVC?
-            switch textFild {
-            case profile?.tfNameOut:
-                let userDefaults = UserDefaults.standard
-                profile?.tfNameOut.text = userDefaults.string(forKey: Profile.ProfileKeys.kName)
-                profile?.tfNameOut.attributedPlaceholder = NSAttributedString(string: "Введите ваше имя ", attributes: [.font: UIFont.systemFont(ofSize: (profile?.tfNameOut.bounds.size.height ?? 20.0) / 1.5, weight: .regular) ])
-            default: break
-            
-            
-        }
-    }
+//func tfPlaceholderSet(_ textFild: UITextField!) {
+//    var profile: ProfileVC?
+//            switch textFild {
+//            case profile?.tfNameOut:
+//                let userDefaults = UserDefaults.standard
+//                profile?.tfNameOut.text = userDefaults.string(forKey: Profile.ProfileKeys.kName)
+//                profile?.tfNameOut.attributedPlaceholder = NSAttributedString(string: "Введите ваше имя ", attributes: [.font: UIFont.systemFont(ofSize: (profile?.tfNameOut.bounds.size.height ?? 20.0) / 1.5, weight: .regular) ])
+//            default: break
+//        }
+//    }
 
 //MARK - Converse date to string with optional
 func converseDateToString(_ inf: Date?) -> String {
@@ -143,6 +144,8 @@ func optionalRemoveForIntStr<T: Any>(_ int: T?) -> String {
 }
 
 
+
+
 func arrayParcing(_ elementParcing: String?) -> String {
     var sum = ""
     if let item = elementParcing {
@@ -173,7 +176,7 @@ func sumFormat(_ str: Int?, _ float: Float? ) -> String {
     }
     return defaultDash
     }
-
+ // Check errors for loading information about client
 
 
 

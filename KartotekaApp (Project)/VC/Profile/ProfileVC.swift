@@ -8,8 +8,8 @@
 import UIKit
 
 class ProfileVC: UIViewController {
-    
-    var profileModel = Profile()
+    var profileVM: ProfileModelProtocol = ProfileModel()
+    //var profileModel = Profile()
     
     @IBOutlet private weak var headerView: UIView! {
         didSet {  setColorSize(headerView) }
@@ -19,7 +19,7 @@ class ProfileVC: UIViewController {
     }
     
     @IBOutlet private weak var nameLabelOut: UILabel!
-    @IBOutlet weak var tfNameOut: UITextField! {
+    @IBOutlet  weak var tfNameOut: UITextField! {
         didSet {
             tfNameOut.delegate = self
             let userDefaults = UserDefaults.standard
@@ -38,7 +38,7 @@ class ProfileVC: UIViewController {
         }
     
     @IBOutlet private weak var actualTokenLabelOut: UILabel!
-    @IBOutlet weak var tfActualOut: UITextField! {
+    @IBOutlet  weak var tfActualOut: UITextField! {
         didSet {
             tfActualOut.delegate = self
          let userDefaults = UserDefaults.standard
@@ -53,18 +53,15 @@ class ProfileVC: UIViewController {
         }
     }
     
-    @IBOutlet private var tfCollectionsOut: [UITextField]!
+    @IBOutlet var tfCollectionsOut: [UITextField]!
                                                  
-    @IBOutlet private weak var saveButtonOut: UIButton! {
-        didSet {
-            setupForbuttonsScreenSize(saveButtonOut) }
+    @IBOutlet  weak var saveButtonOut: UIButton! {
+        didSet { setupForbuttonsScreenSize(saveButtonOut) }
     }
     
     @IBOutlet weak var searchHistoryButtonOut: UIButton! {
-       didSet {
-            searchHistoryButtonOut.layer.cornerRadius = cornerRadius
-            blueButtonSet(searchHistoryButtonOut)
-        }
+       didSet { searchHistoryButtonOut.layer.cornerRadius = cornerRadius
+                blueButtonSet(searchHistoryButtonOut) }
 }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -92,7 +89,7 @@ class ProfileVC: UIViewController {
     
     @IBAction func saveButtonAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        sender.isSelected ? saveProfileSettings() : changedProfileSettings()
+        sender.isSelected ? profileVM.saveProfileSettings(tfNameOut, tfSecondNameOut, tfActualOut, tfCollectionsOut) : profileVM.changedProfileSettings(tfCollectionsOut)
        
 }
     @IBAction func histotyButton() {
@@ -102,22 +99,22 @@ class ProfileVC: UIViewController {
         
     }
     
-    func saveProfileSettings() {
-        let userDefaults = UserDefaults.standard
-        userDefaults.set(tfNameOut.text, forKey: Profile.ProfileKeys.kName)
-        userDefaults.set(tfSecondNameOut.text, forKey: Profile.ProfileKeys.kSecondName)
-        userDefaults.set(tfActualOut.text, forKey: Profile.ProfileKeys.token)
-            tfCollectionsOut.forEach { element in
-                element.textColor = .secondaryLabel
-                element.isEnabled = false }
-    }
+//    func saveProfileSettings() {
+//        let userDefaults = UserDefaults.standard
+//        userDefaults.set(tfNameOut.text, forKey: Profile.ProfileKeys.kName)
+//        userDefaults.set(tfSecondNameOut.text, forKey: Profile.ProfileKeys.kSecondName)
+//        userDefaults.set(tfActualOut.text, forKey: Profile.ProfileKeys.token)
+//            tfCollectionsOut.forEach { element in
+//                element.textColor = .secondaryLabel
+//                element.isEnabled = false }
+//    }
     
-    func changedProfileSettings() {
-        tfCollectionsOut.forEach { element in
-            element.textColor = .label
-            element.isEnabled = true
-        }
-    }
+//    func changedProfileSettings() {
+//        tfCollectionsOut.forEach { element in
+//            element.textColor = .label
+//            element.isEnabled = true
+//        }
+//    }
  
     
     func designButtonForLoadDisplay() {
