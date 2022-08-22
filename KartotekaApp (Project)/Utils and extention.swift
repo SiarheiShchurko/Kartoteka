@@ -7,9 +7,6 @@
 
 import UIKit
 
-
-
-
 //MARK - setup yeallow view. Color and Size
 func setColorSize(_ view: UIView) {
     view.backgroundColor = yeallowCorporativeColor
@@ -146,8 +143,6 @@ func optionalRemoveForIntStr<T: Any>(_ int: T?) -> String {
 }
 
 
-
-
 func arrayParcing(_ elementParcing: String?) -> String {
     var sum = ""
     if let item = elementParcing {
@@ -178,7 +173,7 @@ func sumFormat(_ str: Int?, _ float: Float? ) -> String {
     }
     return defaultDash
     }
- // Check errors for loading information about client
+
 
 
 

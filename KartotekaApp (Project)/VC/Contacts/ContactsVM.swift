@@ -18,7 +18,7 @@ protocol ContactsProtocol {
 
 final class ContactsVM: ContactsProtocol {
    
-//    private var mapServices = MapService()
+
     private var sentEmailService = SentMailServices()
     
     var user: ModelUser?

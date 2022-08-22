@@ -11,7 +11,9 @@ class ProfileVC: UIViewController {
     
     var profileModel = Profile()
     
-    @IBOutlet private weak var headerView: UIView!
+    @IBOutlet private weak var headerView: UIView! {
+        didSet {  setColorSize(headerView) }
+    }
     @IBOutlet private weak var headerLabel: UILabel! {
         didSet {  setupForHeaderViewLabel(headerLabel) }
     }
@@ -72,12 +74,10 @@ class ProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setColorSize(headerView)
         designButtonForLoadDisplay()
     }
 
     @IBAction func tfCollectionAction(_ sender: UITextField) {
-
       let isEmpty = (tfNameOut.text?.isEmpty ?? true || tfSecondNameOut.text?.isEmpty ?? true || tfActualOut.text?.isEmpty ?? true)
         saveButtonOut.isEnabled = !isEmpty
         
@@ -85,6 +85,7 @@ class ProfileVC: UIViewController {
         case tfNameOut: tfNameOut.text = sender.text
         case tfSecondNameOut: tfSecondNameOut.text = sender.text
         case tfActualOut: tfActualOut.text = sender.text
+            
         default: break
     }
 }
@@ -122,14 +123,15 @@ class ProfileVC: UIViewController {
     func designButtonForLoadDisplay() {
         let isEmpty = (tfNameOut.text?.isEmpty ?? true || tfSecondNameOut.text?.isEmpty ?? true || tfActualOut.text?.isEmpty ?? true)
           saveButtonOut.isEnabled = !isEmpty
-        if saveButtonOut.isEnabled {
-            saveButtonOut.isSelected = true
-            tfCollectionsOut.forEach { element in
+       if saveButtonOut.isEnabled {
+          saveButtonOut.isSelected = true
+          tfCollectionsOut.forEach { element in
                 element.textColor = .secondaryLabel
                 element.isEnabled = false }
     }
 }
 }
+
 //MARK - Firstresponder change
 extension ProfileVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
