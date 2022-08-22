@@ -9,7 +9,7 @@ import UIKit
 
 class ProfileVC: UIViewController {
     var profileVM: ProfileModelProtocol = ProfileModel()
-    //var profileModel = Profile()
+    
     
     @IBOutlet private weak var headerView: UIView! {
         didSet {  setColorSize(headerView) }
@@ -60,8 +60,7 @@ class ProfileVC: UIViewController {
     }
     
     @IBOutlet weak var searchHistoryButtonOut: UIButton! {
-       didSet { searchHistoryButtonOut.layer.cornerRadius = cornerRadius
-                blueButtonSet(searchHistoryButtonOut) }
+       didSet { setupForbuttonsScreenSize(searchHistoryButtonOut) }
 }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -98,25 +97,7 @@ class ProfileVC: UIViewController {
         navigationController?.present(nextVC, animated: true)
         
     }
-    
-//    func saveProfileSettings() {
-//        let userDefaults = UserDefaults.standard
-//        userDefaults.set(tfNameOut.text, forKey: Profile.ProfileKeys.kName)
-//        userDefaults.set(tfSecondNameOut.text, forKey: Profile.ProfileKeys.kSecondName)
-//        userDefaults.set(tfActualOut.text, forKey: Profile.ProfileKeys.token)
-//            tfCollectionsOut.forEach { element in
-//                element.textColor = .secondaryLabel
-//                element.isEnabled = false }
-//    }
-    
-//    func changedProfileSettings() {
-//        tfCollectionsOut.forEach { element in
-//            element.textColor = .label
-//            element.isEnabled = true
-//        }
-//    }
- 
-    
+
     func designButtonForLoadDisplay() {
         let isEmpty = (tfNameOut.text?.isEmpty ?? true || tfSecondNameOut.text?.isEmpty ?? true || tfActualOut.text?.isEmpty ?? true)
           saveButtonOut.isEnabled = !isEmpty

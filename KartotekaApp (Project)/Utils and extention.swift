@@ -66,35 +66,8 @@ func blueButtonSet(_ button: UIButton) {
 func setupForbuttonsScreenSize(_ button: UIButton) {
     button.layer.cornerRadius = cornerRadius
     button.frame.size.height = UIScreen.main.bounds.height / standartFontSize
-    button.titleLabel?.font = UIFont.init(name: "Verdana-Bold", size: button.bounds.size.height / standartFontSize)
+    button.titleLabel?.font = UIFont.init(name: "System-Regular", size: button.bounds.size.height / standartFontSize)
 }
-
-
-//Mark - func for setup countryLabel in second textField
-//func setupForCountrysList(info: Settings, label: UILabel) {
-//    let notActive = " (Недоступно)"
-//    let country = "Беларусь"
-//    if info.countryChanged == country || label.text == country {
-//        label.textColor = .blue
-//    } else {
-//        label.text! += notActive
-//        label.textColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.5)
-//        
-//    }
-//}
-
-
-
-//func tfPlaceholderSet(_ textFild: UITextField!) {
-//    var profile: ProfileVC?
-//            switch textFild {
-//            case profile?.tfNameOut:
-//                let userDefaults = UserDefaults.standard
-//                profile?.tfNameOut.text = userDefaults.string(forKey: Profile.ProfileKeys.kName)
-//                profile?.tfNameOut.attributedPlaceholder = NSAttributedString(string: "Введите ваше имя ", attributes: [.font: UIFont.systemFont(ofSize: (profile?.tfNameOut.bounds.size.height ?? 20.0) / 1.5, weight: .regular) ])
-//            default: break
-//        }
-//    }
 
 //MARK - Converse date to string with optional
 func converseDateToString(_ inf: Date?) -> String {
@@ -142,9 +115,6 @@ func optionalRemoveForIntStr<T: Any>(_ int: T?) -> String {
     }
     return defaultDash
 }
-
-
-
 
 func arrayParcing(_ elementParcing: String?) -> String {
     var sum = ""

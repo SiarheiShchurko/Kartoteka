@@ -15,7 +15,7 @@ protocol SearchProtocol {
 
     
 final class SearchResultVM: SearchProtocol {
-        
+        var checkError: SearchResultVC?
         let networkService = NetworkService()
         var update: (() -> Void)?
         var infoEgrArray: [EgrResponse] = [] {
@@ -26,10 +26,10 @@ final class SearchResultVM: SearchProtocol {
                     switch complition {
                     case .success(let inf):
                         self.infoEgrArray.append(inf)
-                    case .failure(_):
-                        do { self.update?() }
-                    case .outOfStock:
-                        do { self.update?() }
+                        //if self.infoEgrArray.isEmpty {
+//                            self.update?()
+//                        }
+                    default: break
                     }
                 }
             }

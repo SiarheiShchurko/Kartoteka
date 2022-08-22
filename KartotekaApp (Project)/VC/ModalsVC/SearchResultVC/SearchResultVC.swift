@@ -47,14 +47,22 @@ class SearchResultVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchVM.update = { self.tableViewOut.reloadData()
+        
+        searchVM.update = {
+            self.tableViewOut.reloadData()
+            
+            if self.searchVM.infoEgrArray.first?.data.first?.name == nil,
+               self.searchVM.infoEgrArray.first?.data.first?.unp == nil {
+                self.checkError()
+            }
             self.actInd.stopAnimating()
             self.actInd.isHidden = true }
+        
         searchVM.loadInfo()
     }
     
     func checkError() {
-        let alert = UIAlertController(title: "Ошибка", message: "1.Проверьте интернет соединение;\n2.Перейдите в настройки профиля для проверки вашего токена ;\n3. Проверьте введенный УНП клиента"
+        let alert = UIAlertController(title: "Информация не найдена", message: "1.Проверьте интернет соединение;\n2.Проверьте введенный УНП клиента;\n3.Перейдите в настройки профиля и проверьте Ваш актуальный токен"
                                       , preferredStyle: .actionSheet)
                     let button = UIAlertAction(title: "Ок", style: .default, handler: {_ in
                         alert.dismiss(animated: true)} )
