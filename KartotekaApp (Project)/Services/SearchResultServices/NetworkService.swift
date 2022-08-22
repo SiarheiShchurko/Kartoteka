@@ -26,6 +26,7 @@ class NetworkService {
     let decoder = JSONDecoder()
     let dateFormatter = DateFormatter()
     var result: ObtainClientsInform = .outOfStock
+    
     func loadInfo(_ complition: @escaping (ObtainClientsInform) -> Void) {
   
         if let unp = RootVM.unp {

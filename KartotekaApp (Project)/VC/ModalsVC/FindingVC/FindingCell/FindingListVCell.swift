@@ -105,7 +105,7 @@ class FindingListVCell: UITableViewCell {
         adressMnsOut.text = inf.data.imnsName ?? defaultDash
         dateRegistrtionOut.text = converseDateToString(inf.data.mnsRegDate)
         dateLiqudationOut.text = converseDateToString(inf.data.eliminationDate)
-        clientAdress.text = inf.data.address ?? defaultDash
+        clientAdress.text = optionalRemoveForIntStr(inf.data.address ).replacingOccurrences(of: "&quot;", with: "")
         setupColorForStatus(clientStatusOut, inf.data.statusMns ?? defaultDash)
         
         //MARK - set EGR

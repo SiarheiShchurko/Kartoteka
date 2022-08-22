@@ -15,7 +15,7 @@ class RootVC: UIViewController {
     
     @IBOutlet weak var changedCountryLabelOut: UILabel! {
         didSet { let userDefaults = UserDefaults.standard
-                 changedCountryLabelOut.text = userDefaults.string(forKey: CountryListVC.KeysForDefaults.selectedCountry) ?? "Беларусь"
+            changedCountryLabelOut.text = userDefaults.string(forKey: CountryListVM.KeysForDefaults.selectedCountry) ?? "Беларусь"
                  setupForLabelScreenSize(changedCountryLabelOut)
                  changedCountryLabelOut.textColor = .blue }
     }
@@ -39,7 +39,7 @@ class RootVC: UIViewController {
     
     @IBOutlet private weak var textFieldOut2: UITextField!
     
-    //MARK - button Search
+    //MARK: - button Search
     @IBOutlet private weak var searchButton: UIButton! {
         didSet  { blueButtonSet(searchButton)
             searchButton.isEnabled = false }
@@ -60,9 +60,7 @@ class RootVC: UIViewController {
         view.endEditing(true)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+ 
     
     @IBAction func countryChangedAct(_ sender: UIButton) {
       let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -92,6 +90,7 @@ class RootVC: UIViewController {
 }
 
 //MARK - Delegate method for show changed country in second TextFild
+
 extension RootVC: GetInfoDelegate {
     func getInfo(_ info: Settings) {
         changedCountryLabelOut.text = info.countryChanged

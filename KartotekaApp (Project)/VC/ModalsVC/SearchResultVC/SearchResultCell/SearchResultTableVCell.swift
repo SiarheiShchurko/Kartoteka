@@ -32,8 +32,7 @@ class SearchResultTableVCell: UITableViewCell {
         nameOut.text = inf.data.first?.name ?? defaultDash
         registrImnsOut.text = inf.data.first?.imnsTitle ?? defaultDash
         regDateOut.text = converseDateToString(inf.data.first?.regDate)
-        let address = optionalRemoveForIntStr(inf.data.first?.address)
-        addressOut.text = address.replacingOccurrences(of: "&quot;", with: "")
+        addressOut.text = optionalRemoveForIntStr(inf.data.first?.address).replacingOccurrences(of: "&quot;", with: "")
     }
 }
    

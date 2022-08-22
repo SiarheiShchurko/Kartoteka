@@ -9,7 +9,7 @@ import UIKit
 
 class FindingVC: UIViewController {
     
-    let networkServiceFind = NetworkServiceFind()
+    var findingVM: FindingVMProtocol = FindingVM()
     
     @IBOutlet private weak var actInd: UIActivityIndicatorView! {
         didSet { actInd.isHidden = false
@@ -22,35 +22,37 @@ class FindingVC: UIViewController {
             tableViewOut.rowHeight = UITableView.automaticDimension
         }
     }
-    var arrayInfo: [FullResponse] = [] {
-        didSet {
-            tableViewOut.reloadData()
-            actInd.stopAnimating()
-            actInd.isHidden = true
-        }
-    }
+//    var arrayInfo: [FullResponse] = [] {
+//        didSet {
+//            tableViewOut.reloadData()
+//            actInd.stopAnimating()
+//            actInd.isHidden = true
+//        }
+//    }
    
     override func viewDidLoad() {
         super.viewDidLoad()
       
         navigationController?.navigationBar.items?.forEach({ item in
-            item.backButtonTitle = "Назад"
-        })
-        
-        networkServiceFind.loadInfo { complition in
-            self.arrayInfo.append(complition) }
+            item.backButtonTitle = "Назад" })
+        findingVM.update = {
+            self.tableViewOut.reloadData()
+            self.actInd.stopAnimating()
+            self.actInd.isHidden = true
         }
+        findingVM.loadInfo()
+    }
 }
 
 extension FindingVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        arrayInfo.count
+        findingVM.arrayInfo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(FindingListVCell.self)", for: indexPath) as? FindingListVCell
-        cell?.setUpContragentName(arrayInfo[indexPath.row])
+        cell?.setUpContragentName(findingVM.arrayInfo[indexPath.row])
         return cell ?? .init()
     }
     
