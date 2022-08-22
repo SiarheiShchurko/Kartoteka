@@ -19,7 +19,7 @@ class ProfileVC: UIViewController {
     }
     
     @IBOutlet private weak var nameLabelOut: UILabel!
-    @IBOutlet  weak var tfNameOut: UITextField! {
+    @IBOutlet private weak var tfNameOut: UITextField! {
         didSet {
             tfNameOut.delegate = self
             let userDefaults = UserDefaults.standard
@@ -28,7 +28,7 @@ class ProfileVC: UIViewController {
         }
     }
     @IBOutlet private weak var secondNameLabelOut: UILabel! 
-    @IBOutlet weak var tfSecondNameOut: UITextField! {
+    @IBOutlet private weak var tfSecondNameOut: UITextField! {
         didSet {
             tfSecondNameOut.delegate = self
          let userDefaults = UserDefaults.standard
@@ -38,7 +38,7 @@ class ProfileVC: UIViewController {
         }
     
     @IBOutlet private weak var actualTokenLabelOut: UILabel!
-    @IBOutlet  weak var tfActualOut: UITextField! {
+    @IBOutlet private weak var tfActualOut: UITextField! {
         didSet {
             tfActualOut.delegate = self
          let userDefaults = UserDefaults.standard

@@ -24,6 +24,7 @@ class SearchResultTableVCell: UITableViewCell {
     
     //MARK - setup cell func info about client
     func setupInfoAboutClient(inf: EgrResponse) {
+        
         unpOut.text = optionalRemoveForIntStr(inf.data.first?.unp)
         imnsNumberOut.text = optionalRemoveForIntStr(inf.data.first?.imns)
         setupColorForStatus(statusOut, inf.data.first?.status)
@@ -31,7 +32,8 @@ class SearchResultTableVCell: UITableViewCell {
         nameOut.text = inf.data.first?.name ?? defaultDash
         registrImnsOut.text = inf.data.first?.imnsTitle ?? defaultDash
         regDateOut.text = converseDateToString(inf.data.first?.regDate)
-        addressOut.text = inf.data.first?.address ?? defaultDash
+        let address = optionalRemoveForIntStr(inf.data.first?.address)
+        addressOut.text = address.replacingOccurrences(of: "&quot;", with: "")
     }
 }
    

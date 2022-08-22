@@ -28,7 +28,7 @@ struct EgrInfo: Codable {
         case unp
         case name
         case shortName = "short_name"
-        case address
+        case address 
         case imns
         case imnsTitle = "imns_title"
         case regDate = "reg_date"
