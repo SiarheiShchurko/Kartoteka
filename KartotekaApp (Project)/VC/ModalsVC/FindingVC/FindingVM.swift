@@ -10,7 +10,9 @@ import Foundation
 protocol FindingVMProtocol {
     
     var arrayInfo: [FullResponse] { get }
+    
     func loadInfo()
+    
     var update: (() -> Void)? { get set }
     
 }
@@ -30,9 +32,4 @@ final class FindingVM: FindingVMProtocol {
             self.arrayInfo.append(complition)
         }
     }
-    
-    
-    
-    
-    
 }

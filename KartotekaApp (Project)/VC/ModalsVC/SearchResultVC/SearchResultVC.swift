@@ -9,7 +9,8 @@ import UIKit
 
 class SearchResultVC: UIViewController {
    
-    let networkService = NetworkService()
+    var searchVM: SearchProtocol = SearchResultVM()
+    
     
     @IBOutlet private weak var informNotFound: UILabel! {
         didSet { informNotFound.isHidden = true }
@@ -34,7 +35,7 @@ class SearchResultVC: UIViewController {
         }
     }
     
-    var infoEgrArray: [EgrResponse] = []
+    
     
     //MARK: Open full response for client
        private func open() {
@@ -46,31 +47,10 @@ class SearchResultVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-            networkService.loadInfo({  complition in
-                switch complition {
-                case .success(let inf):
-                    self.infoEgrArray.append(inf)
-                    DispatchQueue.main.async {
-                        self.tableViewOut.reloadData()
-                    }
-                    self.actInd.stopAnimating()
-                    self.actInd.isHidden = true
-    
-                case .failure(_):
-                    self.checkError()
-                    self.actInd.stopAnimating()
-                    self.actInd.isHidden = true
-                    
-                case .outOfStock:
-                    self.checkError()
-                    self.actInd.stopAnimating()
-                    self.actInd.isHidden = true
-                }
-                
-            
-                
-            })
+        searchVM.update = { self.tableViewOut.reloadData()
+            self.actInd.stopAnimating()
+            self.actInd.isHidden = true }
+        searchVM.loadInfo()
     }
     
     func checkError() {
@@ -87,11 +67,11 @@ class SearchResultVC: UIViewController {
 
 extension SearchResultVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      infoEgrArray.count
+        searchVM.infoEgrArray.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(SearchResultTableVCell.self)", for: indexPath) as? SearchResultTableVCell
-        cell?.setupInfoAboutClient(inf: infoEgrArray[indexPath.row])
+        cell?.setupInfoAboutClient(inf: searchVM.infoEgrArray[indexPath.row])
         return cell ?? UITableViewCell()
     }
     

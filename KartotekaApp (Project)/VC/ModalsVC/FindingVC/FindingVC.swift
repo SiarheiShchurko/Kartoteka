@@ -22,25 +22,16 @@ class FindingVC: UIViewController {
             tableViewOut.rowHeight = UITableView.automaticDimension
         }
     }
-//    var arrayInfo: [FullResponse] = [] {
-//        didSet {
-//            tableViewOut.reloadData()
-//            actInd.stopAnimating()
-//            actInd.isHidden = true
-//        }
-//    }
    
     override func viewDidLoad() {
         super.viewDidLoad()
-      
         navigationController?.navigationBar.items?.forEach({ item in
             item.backButtonTitle = "Назад" })
-        findingVM.update = {
-            self.tableViewOut.reloadData()
+        findingVM.update = { self.tableViewOut.reloadData()
             self.actInd.stopAnimating()
-            self.actInd.isHidden = true
-        }
+            self.actInd.isHidden = true }
         findingVM.loadInfo()
+        
     }
 }
 
