@@ -25,13 +25,36 @@ class FindingVC: UIViewController {
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Change naming barButtonItem
         navigationController?.navigationBar.items?.forEach({ item in
             item.backButtonTitle = "Назад" })
+        //Func update - call if info loadet to array
         findingVM.update = { self.tableViewOut.reloadData()
             self.actInd.stopAnimating()
             self.actInd.isHidden = true }
+        
+        //If info no load 10 sec - call func checkConnect
+        findingVM.noConnect = {
+            self.tableViewOut.reloadData()
+                self.actInd.stopAnimating()
+                self.actInd.isHidden = true
+            self.checkConnect()
+            
+        }
+        //Start timer for load 10 sec
+        findingVM.timerFunc()
+        //Load information to array
         findingVM.loadInfo()
         
+    }
+    
+    func checkConnect() {
+        let alert = UIAlertController(title: "Информация не найдена", message: "1.Проверьте интернет соединение и повторите попытку"
+                                      , preferredStyle: .actionSheet)
+                    let button = UIAlertAction(title: "Ок", style: .default, handler: {_ in
+                        alert.dismiss(animated: true)} )
+                  alert.addAction(button)
+                   present(alert, animated: true)
     }
 }
 

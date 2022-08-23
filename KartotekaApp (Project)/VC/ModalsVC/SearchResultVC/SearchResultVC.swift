@@ -58,7 +58,8 @@ class SearchResultVC: UIViewController {
             //If info success find, stop animating
             self.actInd.stopAnimating()
             self.actInd.isHidden = true }
-        searchVM.noConnect = {
+        
+            searchVM.noConnect = {
             self.tableViewOut.reloadData()
             self.actInd.stopAnimating()
             self.actInd.isHidden = true
@@ -70,6 +71,8 @@ class SearchResultVC: UIViewController {
         //if information was loaded append this in array
         searchVM.loadInfo()
     }
+    
+    
     func checkConnect() {
         let alert = UIAlertController(title: "Информация не найдена", message: "1.Проверьте интернет соединение"
                                       , preferredStyle: .actionSheet)
@@ -80,7 +83,7 @@ class SearchResultVC: UIViewController {
     }
     
     func checkError() {
-        let alert = UIAlertController(title: "Информация не найдена", message: "1.Проверьте интернет соединение;\n2.Проверьте введенный УНП клиента;\n3.Перейдите в настройки профиля и проверьте Ваш актуальный токен"
+        let alert = UIAlertController(title: "Информация не найдена", message: "1.Проверьте введенный УНП клиента;\n2.Перейдите в настройки профиля и проверьте Ваш актуальный токен;\n3.Также проверьте интернет соединение"
                                       , preferredStyle: .actionSheet)
                     let button = UIAlertAction(title: "Ок", style: .default, handler: {_ in
                         alert.dismiss(animated: true)} )
