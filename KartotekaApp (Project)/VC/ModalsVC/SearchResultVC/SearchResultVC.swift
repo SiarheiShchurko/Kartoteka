@@ -47,18 +47,36 @@ class SearchResultVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //Func ipdate for VM
         searchVM.update = {
+            //Update tableView
             self.tableViewOut.reloadData()
-            
+            //If data is empty, show alert "Check error"
             if self.searchVM.infoEgrArray.first?.data.first?.name == nil,
                self.searchVM.infoEgrArray.first?.data.first?.unp == nil {
-                self.checkError()
-            }
+               self.checkError() }
+            //If info success find, stop animating
             self.actInd.stopAnimating()
             self.actInd.isHidden = true }
-        
+        searchVM.noConnect = {
+            self.tableViewOut.reloadData()
+            self.actInd.stopAnimating()
+            self.actInd.isHidden = true
+            self.checkConnect()
+        }
+       
+        //If time request more 10 seconds - call checkConnect
+        searchVM.timerFunc()
+        //if information was loaded append this in array
         searchVM.loadInfo()
+    }
+    func checkConnect() {
+        let alert = UIAlertController(title: "Информация не найдена", message: "1.Проверьте интернет соединение"
+                                      , preferredStyle: .actionSheet)
+                    let button = UIAlertAction(title: "Ок", style: .default, handler: {_ in
+                        alert.dismiss(animated: true)} )
+                  alert.addAction(button)
+                   present(alert, animated: true)
     }
     
     func checkError() {
