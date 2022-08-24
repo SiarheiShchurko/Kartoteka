@@ -7,13 +7,17 @@
 
 import Foundation
 import UIKit
+
+//MARK: Protokol for VM
 protocol ProfileModelProtocol {
-    func saveProfileSettings(_ name: UITextField, _ secondName: UITextField, _ token: UITextField, _ collection: [UITextField] )
-    func changedProfileSettings(_ collection: [UITextField] )
+    
+    func saveProfileSettings(_ name: UITextField, _ secondName: UITextField, _ token: UITextField, _ collection: [UITextField])
+    
 }
 
 final class ProfileModel: ProfileModelProtocol {
     
+    //MARK: Save profile settings func in UserDefaults (if user press button "Save")
     func saveProfileSettings(_ name: UITextField, _ secondName: UITextField, _ token: UITextField, _ collection: [UITextField] ) {
         
         let userDefaults = UserDefaults.standard
@@ -25,11 +29,4 @@ final class ProfileModel: ProfileModelProtocol {
                 element.isEnabled = false }
         
     }
-    func changedProfileSettings(_ collection: [UITextField] ) {
-        collection.forEach { element in
-            element.textColor = .label
-            element.isEnabled = true
-        }
-    }
-
 }

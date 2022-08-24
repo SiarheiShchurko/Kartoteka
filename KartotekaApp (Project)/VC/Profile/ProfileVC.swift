@@ -18,16 +18,31 @@ class ProfileVC: UIViewController {
         didSet {  setupForHeaderViewLabel(headerLabel) }
     }
     
+    //MARK: Label Name
     @IBOutlet private weak var nameLabelOut: UILabel!
+    
+    //MARK: Label secondName
+    @IBOutlet private weak var secondNameLabelOut: UILabel! 
+    
+    //MARK: Label Token
+    @IBOutlet private weak var actualTokenLabelOut: UILabel!
+    
+    //MARK: All Labels collection
+    @IBOutlet var labelCollectionsOut: [UILabel]! {
+        didSet {
+            labelCollectionsOut.forEach( { label in setupForLabelScreenSize(label) } ) }
+    }
+    
+    //MARK: TF Name
     @IBOutlet private weak var tfNameOut: UITextField! {
         didSet {
             tfNameOut.delegate = self
             let userDefaults = UserDefaults.standard
                tfNameOut.text = userDefaults.string(forKey: Profile.ProfileKeys.kName)
-               tfNameOut.attributedPlaceholder = NSAttributedString(string: "Введите ваше имя", attributes: [.font: UIFont.systemFont(ofSize: tfNameOut.bounds.size.height / standartPlaceholderFont, weight: .regular) ])
-        }
+               tfNameOut.attributedPlaceholder = NSAttributedString(string: "Введите ваше имя", attributes: [.font: UIFont.systemFont(ofSize: tfNameOut.bounds.size.height / standartPlaceholderFont, weight: .regular) ]) }
     }
-    @IBOutlet private weak var secondNameLabelOut: UILabel! 
+    
+    //MARK: TF Secondname
     @IBOutlet private weak var tfSecondNameOut: UITextField! {
         didSet {
             tfSecondNameOut.delegate = self
@@ -37,67 +52,73 @@ class ProfileVC: UIViewController {
             }
         }
     
-    @IBOutlet private weak var actualTokenLabelOut: UILabel!
+    //MARK: TF Token
     @IBOutlet private weak var tfActualOut: UITextField! {
         didSet {
             tfActualOut.delegate = self
          let userDefaults = UserDefaults.standard
             tfActualOut.text = userDefaults.string(forKey: Profile.ProfileKeys.token)
-            tfActualOut.attributedPlaceholder = NSAttributedString(string: "Введите актуальный токен", attributes: [.font: UIFont.systemFont(ofSize: tfActualOut.bounds.size.height / standartPlaceholderFont, weight: .regular) ])
-        }
+            tfActualOut.attributedPlaceholder = NSAttributedString(string: "Введите актуальный токен", attributes: [.font: UIFont.systemFont(ofSize: tfActualOut.bounds.size.height / standartPlaceholderFont, weight: .regular) ]) }
     }
     
-    @IBOutlet var labelCollectionsOut: [UILabel]! {
-        didSet {
-            labelCollectionsOut.forEach( { label in setupForLabelScreenSize(label) } )
-        }
-    }
-    
+    //MARK: TF collections Out
     @IBOutlet var tfCollectionsOut: [UITextField]!
-                                                 
+    
+    //MARK: Button outlet - "Save/Change settings"
     @IBOutlet  weak var saveButtonOut: UIButton! {
         didSet { setupForbuttonsScreenSize(saveButtonOut) }
     }
     
+    //MARK: Button outlet - "Request history"
     @IBOutlet weak var searchHistoryButtonOut: UIButton! {
        didSet { setupForbuttonsScreenSize(searchHistoryButtonOut) }
 }
     
+    //MARK: Hide keyboard
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         view.endEditing(true)
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Running for set button save/change and set for design TF collection
         designButtonForLoadDisplay()
     }
-
+    
+    //MARK: Action/TFCollection - User can save changed if only all 3 TF completed
     @IBAction func tfCollectionAction(_ sender: UITextField) {
       let isEmpty = (tfNameOut.text?.isEmpty ?? true || tfSecondNameOut.text?.isEmpty ?? true || tfActualOut.text?.isEmpty ?? true)
         saveButtonOut.isEnabled = !isEmpty
         
+        //Assign value for TF:
         switch sender {
+            //Name
         case tfNameOut: tfNameOut.text = sender.text
+            //SecondName
         case tfSecondNameOut: tfSecondNameOut.text = sender.text
+            //Actual token
         case tfActualOut: tfActualOut.text = sender.text
             
         default: break
     }
 }
-    
+    //MARK: Action/Button - "Save/Changed"
     @IBAction func saveButtonAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        sender.isSelected ? profileVM.saveProfileSettings(tfNameOut, tfSecondNameOut, tfActualOut, tfCollectionsOut) : profileVM.changedProfileSettings(tfCollectionsOut)
+        sender.isSelected ? profileVM.saveProfileSettings(tfNameOut, tfSecondNameOut, tfActualOut, tfCollectionsOut) : changedProfileSettings()
        
 }
+    
+    //MARK: Action/Button - "Request History"
     @IBAction func histotyButton() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let nextVC = storyboard.instantiateViewController(withIdentifier: "\(HistoryViewsVC.self)") as? HistoryViewsVC else { return }
         navigationController?.present(nextVC, animated: true)
         
     }
-
+    //MARK: Design button "save/change" and TF, when app starting
     func designButtonForLoadDisplay() {
         let isEmpty = (tfNameOut.text?.isEmpty ?? true || tfSecondNameOut.text?.isEmpty ?? true || tfActualOut.text?.isEmpty ?? true)
           saveButtonOut.isEnabled = !isEmpty
@@ -108,9 +129,16 @@ class ProfileVC: UIViewController {
                 element.isEnabled = false }
     }
 }
+    //MARK: func for update UI elements if user press buttons "Change"
+    func changedProfileSettings() {
+        tfCollectionsOut.forEach { element in
+            element.textColor = .label
+            element.isEnabled = true
+        }
+    }
 }
 
-//MARK - Firstresponder change
+//MARK: - Firstresponder Settings
 extension ProfileVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if tfNameOut == textField {
