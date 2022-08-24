@@ -8,25 +8,17 @@
 import UIKit
 
 class SearchResultVC: UIViewController {
-   
+   //MARK: VM var
     var searchVM: SearchProtocol = SearchResultVM()
     
-    
-    @IBOutlet private weak var informNotFound: UILabel! {
-        didSet { informNotFound.isHidden = true }
-    }
-    @IBOutlet private weak var actInd: UIActivityIndicatorView! {
-        didSet { actInd.isHidden = false
-            actInd.startAnimating() }
-    }
-    
+    //MARK: HeaderView
     @IBOutlet private weak var headerView: UIView! {
         didSet {
            setForSmallHeaderView(headerView)
         }
     }
     
-    
+    //MARK: TableView
     @IBOutlet private weak var tableViewOut: UITableView! {
         didSet {
             tableViewOut.dataSource = self
@@ -35,7 +27,11 @@ class SearchResultVC: UIViewController {
         }
     }
     
-    
+    //MARK: Outlet UIActivityIndicatorView
+    @IBOutlet private weak var actInd: UIActivityIndicatorView! {
+        didSet { actInd.isHidden = false
+            actInd.startAnimating() }
+    }
     
     //MARK: Open full response for client
        private func open() {
@@ -47,7 +43,8 @@ class SearchResultVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //Func ipdate for VM
+        
+        //Func update for VM
         searchVM.update = {
             //Update tableView
             self.tableViewOut.reloadData()
@@ -58,7 +55,8 @@ class SearchResultVC: UIViewController {
             //If info success find, stop animating
             self.actInd.stopAnimating()
             self.actInd.isHidden = true }
-        
+            
+            //Func if server no have answer more 10 seconds
             searchVM.noConnect = {
             self.tableViewOut.reloadData()
             self.actInd.stopAnimating()
@@ -73,6 +71,7 @@ class SearchResultVC: UIViewController {
     }
     
     
+    //MARK: Check internet. Call when answer from server absent
     func checkConnect() {
         let alert = UIAlertController(title: "Информация не найдена", message: "1.Проверьте интернет соединение"
                                       , preferredStyle: .actionSheet)
@@ -82,6 +81,7 @@ class SearchResultVC: UIViewController {
                    present(alert, animated: true)
     }
     
+    //MARK: Func call when user enter miss unp or token
     func checkError() {
         let alert = UIAlertController(title: "Информация не найдена", message: "1.Проверьте введенный УНП клиента;\n2.Перейдите в настройки профиля и проверьте Ваш актуальный токен;\n3.Также проверьте интернет соединение"
                                       , preferredStyle: .actionSheet)
@@ -92,18 +92,20 @@ class SearchResultVC: UIViewController {
     }
 }
 
-
-
+//MARK: Extension for cells
 extension SearchResultVC: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         searchVM.infoEgrArray.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(SearchResultTableVCell.self)", for: indexPath) as? SearchResultTableVCell
         cell?.setupInfoAboutClient(inf: searchVM.infoEgrArray[indexPath.row])
         return cell ?? UITableViewCell()
     }
     
+    //MARK: didSelectRow
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         open()

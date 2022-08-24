@@ -15,6 +15,7 @@ protocol HistoryViewsProtocol {
 
 final class HistoryVM: HistoryViewsProtocol {
     
+    //MARK: Client array 
     var client: [History] = []
     
     var update: (() -> Void)?

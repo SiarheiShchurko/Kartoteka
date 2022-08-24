@@ -7,6 +7,7 @@
 
 import Foundation
 
+//MARK: Protocol for VM
 protocol CountryListProtocol {
     
     var countrysArray: [String] { get }
@@ -14,6 +15,7 @@ protocol CountryListProtocol {
 }
 
 final class CountryListVM: CountryListProtocol {
+    
     //MARK: Keep selected country enum
     enum KeysForDefaults {
         

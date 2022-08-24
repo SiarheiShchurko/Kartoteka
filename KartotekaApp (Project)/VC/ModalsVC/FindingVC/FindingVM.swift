@@ -23,16 +23,25 @@ protocol FindingVMProtocol {
 
 final class FindingVM: FindingVMProtocol {
     
-    var timer: Timer?
-    var counter: Int = 0
-    var update: (() -> Void)?
-    var noConnect: (() -> Void)?
     let networkServiceFind = NetworkServiceFind()
     
+    var timer: Timer?
+    
+    //MARK: Buffer var for timer sec
+    var counter: Int = 0
+    
+    //MARK: Func for reload data, and work other UI
+    var update: (() -> Void)?
+    
+    //MARK: No connect func
+    var noConnect: (() -> Void)?
+    
+    //MARK: Array for stored get data
     var arrayInfo: [FullResponse] = [] {
         didSet { update?() }
     }
     
+    //MARK: Load data in array
     func loadInfo() {
         networkServiceFind.loadInfo { complition in
             self.arrayInfo.append(complition)
@@ -40,11 +49,13 @@ final class FindingVM: FindingVMProtocol {
         }
     }
     
+    //MARK: Timer func
     func timerFunc() {
         timer?.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     
+    //MARK: Update timer evry 1 sec. If timesr = 10 sec - timer.invalidate
     @objc private func updateTimer() {
         if counter < 10 {
             counter += 1

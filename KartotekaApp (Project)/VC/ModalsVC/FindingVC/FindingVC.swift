@@ -9,20 +9,24 @@ import UIKit
 
 class FindingVC: UIViewController {
     
+    //MARK: VM var
     var findingVM: FindingVMProtocol = FindingVM()
     
-    @IBOutlet private weak var actInd: UIActivityIndicatorView! {
-        didSet { actInd.isHidden = false
-            actInd.startAnimating() }
-    }
+    //MARK: TableView
     @IBOutlet private weak var tableViewOut: UITableView! {
         didSet {
             tableViewOut.delegate = self
             tableViewOut.dataSource = self
-            tableViewOut.rowHeight = UITableView.automaticDimension
-        }
+            tableViewOut.rowHeight = UITableView.automaticDimension }
     }
-   
+    
+    //MARK: Outlet UIActivityIndicatorView
+    @IBOutlet private weak var actInd: UIActivityIndicatorView! {
+        didSet { actInd.isHidden = false
+            actInd.startAnimating() }
+    }
+    
+    //MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         //Change naming barButtonItem
@@ -48,6 +52,7 @@ class FindingVC: UIViewController {
         
     }
     
+    //MARK: Call when absent server answer more 10 sec.
     func checkConnect() {
         let alert = UIAlertController(title: "Информация не найдена", message: "1.Проверьте интернет соединение и повторите попытку"
                                       , preferredStyle: .actionSheet)
@@ -58,6 +63,7 @@ class FindingVC: UIViewController {
     }
 }
 
+//MARK: Extension for tableView
 extension FindingVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

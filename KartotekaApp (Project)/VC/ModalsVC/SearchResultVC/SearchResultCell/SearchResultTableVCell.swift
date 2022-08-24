@@ -6,13 +6,10 @@
 //
 
 import UIKit
-//import MapKit
 
 class SearchResultTableVCell: UITableViewCell {
     
-    
-    //MARK - Outlets
-    
+    //MARK: - Outlets
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var unpOut: UILabel!
     @IBOutlet private weak var nameOut: UILabel!
@@ -22,9 +19,8 @@ class SearchResultTableVCell: UITableViewCell {
     @IBOutlet private weak var statusOut: UILabel!
     @IBOutlet private weak var regDateOut: UILabel!
     
-    //MARK - setup cell func info about client
+    //MARK: - setup cell info about client
     func setupInfoAboutClient(inf: EgrResponse) {
-        
         unpOut.text = optionalRemoveForIntStr(inf.data.first?.unp)
         imnsNumberOut.text = optionalRemoveForIntStr(inf.data.first?.imns)
         setupColorForStatus(statusOut, inf.data.first?.status)

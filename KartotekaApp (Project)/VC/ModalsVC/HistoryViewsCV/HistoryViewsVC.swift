@@ -9,21 +9,27 @@ import UIKit
 
 class HistoryViewsVC: UIViewController {
     
+    //MARK: VM var
     var historyVM: HistoryViewsProtocol = HistoryVM()
     
+    //MARK: RootVM var for have unp data
     var rootViewModel: RootProtokol = RootVM()
     
-    
-    @IBOutlet private weak var titleHistoryLabel: UILabel!
+    //MARK: HeaderView
     @IBOutlet private weak var headerView: UIView! {
         didSet { setForSmallHeaderView(headerView) }
     }
-    @IBOutlet private weak var tableView: UITableView! {
-        didSet { tableView.delegate = self
-                 tableView.dataSource = self
-        }
-    }
     
+    //MARK: TableView
+     @IBOutlet private weak var tableView: UITableView! {
+         didSet { tableView.delegate = self
+                  tableView.dataSource = self }
+     }
+    
+    //MARK: Label "History request"
+    @IBOutlet private weak var titleHistoryLabel: UILabel!
+    
+    //MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         historyVM.update = { self.tableView.reloadData() }
@@ -38,6 +44,7 @@ class HistoryViewsVC: UIViewController {
     }
 }
 
+//MARK: Extension for cells
 extension HistoryViewsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         historyVM.client.count
@@ -58,7 +65,7 @@ extension HistoryViewsVC: UITableViewDelegate, UITableViewDataSource {
     
  
     
-    //MARK: - Methods for edit cells
+    //MARK: - Methods for edit cells (for delete)
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         true
     }

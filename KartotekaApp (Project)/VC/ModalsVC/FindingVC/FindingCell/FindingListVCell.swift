@@ -8,6 +8,9 @@
 import UIKit
 
 class FindingListVCell: UITableViewCell {
+    
+    //MARK: Outlets
+    
     //MNS
     @IBOutlet private weak var unpOut: UILabel!
     @IBOutlet private weak var contragentNameOut: UILabel!
@@ -97,7 +100,7 @@ class FindingListVCell: UITableViewCell {
     @IBOutlet private weak var quantityCertsOfConf: UILabel!
     
     
-  
+    //MARK: set label func
     func setUpContragentName(_ inf: FullResponse) {
         //MARK - set MNS
         unpOut.text = optionalRemoveForIntStr(inf.data.unp)
@@ -147,8 +150,8 @@ class FindingListVCell: UITableViewCell {
 
         //MARK - Executory
         debitorExecutoryOut.text = optionalRemoveForIntStr(inf.data.executory?.debtor)
+        
         //MARK - imnsDebtorsFirstDay
-
         if !inf.data.imnsDebtors.isEmpty {
             imnsDebtorsFirstDayOut.text?.removeAll()
            inf.data.imnsDebtors.forEach( { element in
@@ -185,7 +188,6 @@ class FindingListVCell: UITableViewCell {
         statusOut.text? = inf.data.bankruptcy?.status ?? false ? "Да" : "Нет"
         setupColorForStatus(statusOut, statusOut.text)
         
-        
         //RISK
         riskReasonOut.text? = inf.data.risk?.reason ?? defaultDash
         dateRiskOut.text = converseDateToString(inf.data.risk?.date)
@@ -208,7 +210,6 @@ class FindingListVCell: UITableViewCell {
             
         } else { checkInMonthOut?.text = defaultDash }
             
-        
         //DisqualifiedProvidersInfo
         descriptionOut.text = inf.data.disqualifiedProviders?.description ?? defaultDash
         excDescription.text = inf.data.disqualifiedProviders?.excDescription ?? defaultDash

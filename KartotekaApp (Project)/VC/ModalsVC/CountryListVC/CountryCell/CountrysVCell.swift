@@ -9,10 +9,11 @@ import UIKit
 
 class CountrysVCell: UITableViewCell {
     
+    //MARK: Label name country
     @IBOutlet private weak var countryNameOut: UILabel!
     
-    var setting: Settings!
-    
+  
+    //MARK: Func for set label in cells
     func setupCell(_ set: Settings) {
         countryNameOut.text = set.countryChanged
         
