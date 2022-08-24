@@ -18,9 +18,10 @@ protocol ContactsProtocol {
 
 final class ContactsVM: ContactsProtocol {
    
-
+    //MARK: Services var
     private var sentEmailService = SentMailServices()
     
+    //MARK: Model for stored information about user
     var user: ModelUser?
     
     //MARK: func for sent email

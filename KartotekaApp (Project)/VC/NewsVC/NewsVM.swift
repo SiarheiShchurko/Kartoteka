@@ -8,12 +8,14 @@
 import Foundation
 import UIKit
 
+//MARK: model for storage news
 struct ModalNews {
     var newsName: String?
     var image: UIImage?
     var url: URL?
 }
 
+//MARK: Protocol for VM
 protocol NewsProtocol {
     var newsArray: [ModalNews] { get }
     func openNews(_ link: ModalNews)

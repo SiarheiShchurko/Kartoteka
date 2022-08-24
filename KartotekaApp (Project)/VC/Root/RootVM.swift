@@ -7,6 +7,7 @@
 
 import Foundation
 
+//MARK: Protocol for VM
 protocol RootProtokol {
     
     static var unp: Int? { get set }

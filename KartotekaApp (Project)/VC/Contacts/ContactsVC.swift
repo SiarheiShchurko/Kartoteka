@@ -11,59 +11,40 @@ import MapKit
 
 
 class ContactsCompanyVC: UIViewController  {
-   
+    
+    //MARK: VM var
     private var contactsModel: ContactsProtocol = ContactsVM()
     
-    
-    @IBOutlet weak var mapOut: MKMapView! {
-        didSet { contactsModel.mapService(mapOut) }
-    }
-    
-    @IBOutlet weak var firstBlockOut: UIView!
+    //MARK: ScrollView
     @IBOutlet weak var scrollViewOut: UIScrollView!
+    
+    //MARK: HeaderView
     @IBOutlet private weak var headerView: UIView! {
         didSet { setColorSize(headerView)}
     }
     
-    @IBOutlet private weak var contactsLabelOut: UILabel!
-
-    //MARK - Views groupOutlets. Changed corner radius.
+    //MARK: "Contacts block"
+    @IBOutlet weak var firstBlockOut: UIView!
+    
+    //MARK: - Views First Block (Contacts block), Second Block and Map Block. Corner radius set.
     @IBOutlet var viewsCollectionOut: [UIView]! {
         didSet { viewsCollectionOut.forEach({ elementView in
-                elementView.layer.cornerRadius = cornerRadius })
-        }
+                elementView.layer.cornerRadius = cornerRadius }) }
     }
     
-    //MARK - headerview. Set for label.
+    //MARK: MapView
+    @IBOutlet weak var mapOut: MKMapView! {
+        didSet { contactsModel.mapService(mapOut) }
+    }
+           
+    //MARK: - Label "Contacts in HeaderView"
     @IBOutlet private weak var headerLabel: UILabel! {
         didSet {
             setupForHeaderViewLabel(headerLabel)
         }
     }
     
-    @IBOutlet private weak var nameTextFieldOut: UITextField! {
-        didSet { nameTextFieldOut.delegate = self
-            nameTextFieldOut.attributedPlaceholder = NSAttributedString(string: "Введите ваше имя", attributes: [.font: UIFont.systemFont(ofSize: nameTextFieldOut.bounds.size.height / standartPlaceholderFont, weight: .regular) ]) }
-    }
-    
-    @IBOutlet private weak var emailTextFieldOut: UITextField! {
-        didSet { emailTextFieldOut.delegate = self
-            emailTextFieldOut.attributedPlaceholder = NSAttributedString(string: "Введите ваш е-мейл", attributes: [.font: UIFont.systemFont(ofSize: emailTextFieldOut.bounds.size.height / standartPlaceholderFont, weight: .regular)]) }
-    }
-    
-    @IBOutlet private weak var messageTextFieldOut: UITextField! {
-        didSet {
-            messageTextFieldOut.delegate = self
-            let sizeFontThisObject = messageTextFieldOut.bounds.size.height * 2.0
-            messageTextFieldOut.bounds.size.height = sizeFontThisObject
-            messageTextFieldOut.attributedPlaceholder = NSAttributedString(string: "Введите ваше сообщение", attributes: [.font: UIFont.systemFont(ofSize: emailTextFieldOut.bounds.size.height / standartPlaceholderFont, weight: .regular)]) }
-    }
-    
-    @IBOutlet weak var firstBlockButtonOut: UIButton! {
-        didSet { setupForbuttonsScreenSize(firstBlockButtonOut) }
-    }
-    
-    //MARK: - FirstBlockViews. Label Font settings. We have 3 variant fonts. Header - Times Roman. Start words in row - system bold. Other words who not include in array writing standart text.
+    //MARK: - Label Font settings. We have 3 variant fonts. Header - Times Roman. Start words in row - system bold. Other words who not include in array writing standart text.
     @IBOutlet var labelsCollectionOut: [UILabel]! {
         didSet { labelsCollectionOut.forEach({label in
                setupForLabelScreenSize(label)
@@ -77,13 +58,41 @@ class ContactsCompanyVC: UIViewController  {
                         label.font = UIFont.systemFont(ofSize: label.bounds.size.height / standartFontSize, weight: .bold) } } })
         }
     }
-  
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    
+    //MARK: TF "nameTextFieldOut"
+    @IBOutlet private weak var nameTextFieldOut: UITextField! {
+        didSet { nameTextFieldOut.delegate = self
+            nameTextFieldOut.attributedPlaceholder = NSAttributedString(string: "Введите ваше имя", attributes: [.font: UIFont.systemFont(ofSize: nameTextFieldOut.bounds.size.height / standartPlaceholderFont, weight: .regular) ]) }
+    }
+    
+    //MARK: TF "emailTextFieldOut"
+    @IBOutlet private weak var emailTextFieldOut: UITextField! {
+        didSet { emailTextFieldOut.delegate = self
+            emailTextFieldOut.attributedPlaceholder = NSAttributedString(string: "Введите ваш е-мейл", attributes: [.font: UIFont.systemFont(ofSize: emailTextFieldOut.bounds.size.height / standartPlaceholderFont, weight: .regular)]) }
+    }
+    
+    //MARK: TF "messageTextFieldOut"
+    @IBOutlet private weak var messageTextFieldOut: UITextField! {
+        didSet {
+            messageTextFieldOut.delegate = self
+            let sizeFontThisObject = messageTextFieldOut.bounds.size.height * 2.0
+            messageTextFieldOut.bounds.size.height = sizeFontThisObject
+            messageTextFieldOut.attributedPlaceholder = NSAttributedString(string: "Введите ваше сообщение", attributes: [.font: UIFont.systemFont(ofSize: emailTextFieldOut.bounds.size.height / standartPlaceholderFont, weight: .regular)]) }
+    }
+    
+    //MARK: Button "Sent message"
+    @IBOutlet weak var firstBlockButtonOut: UIButton! {
+        didSet { setupForbuttonsScreenSize(firstBlockButtonOut) }
+    }
+    
+    //MARK: Hide keyboard func
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
           view.endEditing(true)
           
   }
-    //MARK: Notification for keyboard.
+    
+    //MARK: Notification for keyboard. When keyboard showed, UI moving by the size of keyboard.
      func registerForKeyboardNotications() {
         NotificationCenter.default.addObserver(self, selector: #selector(kbWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(kbWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -104,8 +113,11 @@ class ContactsCompanyVC: UIViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //MARK - return backgroundColor for tabBar
         tabBarController?.tabBar.backgroundColor = .systemBackground
+        //MARK - used yeallowCorporativeColor for backgroundColor view because when user scrolling display, some space background have white color.
         view.backgroundColor = yeallowCorporativeColor
+        //Notification func for keyboard
         registerForKeyboardNotications()
     }
     
@@ -123,16 +135,20 @@ class ContactsCompanyVC: UIViewController  {
     
     //MARK: Action - Email sending
     @IBAction private func sendMessageAct(_ sender: UIButton) {
-        //MARK: Save data entered by user in struct
+        
+        //MARK - Save data entered by user in struct
         contactsModel.user = ModelUser.init(name: nameTextFieldOut.text, email: emailTextFieldOut.text, message: messageTextFieldOut.text)
-        //MARK: Call emailService func
+        
+        //MARK - Call emailService func
         contactsModel.sentMessage()
-        //MARK: Removed all text out from textField
+        
+        //MARK - Removed all text out from textField
         nameTextFieldOut.text?.removeAll()
         emailTextFieldOut.text?.removeAll()
         messageTextFieldOut.text?.removeAll()
         firstBlockButtonOut.isEnabled = false
-        //MARK: Alert
+        
+        //MARK - Alert about successfull sending
         let alert = UIAlertController(title: "Cообщение отправлено", message: nil, preferredStyle: .alert)
         let buttonOk = UIAlertAction(title: "Ok", style: .default) { _ in
             alert.dismiss(animated: true)}
@@ -141,7 +157,7 @@ class ContactsCompanyVC: UIViewController  {
         }
 }
 
-//MARK: Delegate methods for TF
+//MARK: TF Delegate methods for firstResponder
 extension ContactsCompanyVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {  ///Этот метод срабатывает после нажатие на кнопку "enter/return".
         if nameTextFieldOut == textField { emailTextFieldOut.becomeFirstResponder() ///После нажатия на enter/return - FirstResponderом будет secondOutlet, соотвтетственно курсор будет перемещен на второй текст филд.

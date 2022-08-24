@@ -8,29 +8,34 @@
 import UIKit
 
 class NewsVC: UIViewController {
-    
+    //MARK: VM var
     let newsModel: NewsProtocol = NewsVM()
     
+    //MARK: HeaderView
+    @IBOutlet private weak var headerView: UIView! {
+        didSet { setColorSize(headerView) }
+    }
+    
+    //MARK: TableView
     @IBOutlet private weak var tableViewOut: UITableView! {
         didSet { tableViewOut.dataSource = self
                  tableViewOut.delegate = self }
     }
     
-    @IBOutlet private weak var headerView: UIView! {
-        didSet { setColorSize(headerView) }
-    }
+    //MARK: Label "Новости"
     @IBOutlet private weak var newsLabelOut: UILabel! {
         didSet { newsLabelOut.text = "Новости"
                  setupForHeaderViewLabel(newsLabelOut) }
     }
     
+    //MARK: Label: "Последние новости и обновления от Картотеки"
     @IBOutlet private weak var secondNewsLabelOut: UILabel! {
         didSet { secondNewsLabelOut.text = "Последние новости и обновления от Картотеки"
                  setupForLabelScreenSize(secondNewsLabelOut) }
     }
 }
-//MARK - Method for open news link
 
+//MARK: - extension for open news link
 
 extension NewsVC: UITableViewDataSource, UITableViewDelegate {
     
