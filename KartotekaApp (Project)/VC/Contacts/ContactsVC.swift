@@ -9,6 +9,14 @@ import UIKit
 import MessageUI
 import MapKit
 
+//MARK: Protocol for notification for move UI when user press on TF
+protocol NotiProtocol {
+    
+    func registerForKeyboardNotications()
+    func removeKeyBoardNotifications()
+    func kbWillShow(_ notification: Notification)
+    
+}
 
 class ContactsCompanyVC: UIViewController  {
     
@@ -89,35 +97,18 @@ class ContactsCompanyVC: UIViewController  {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
           view.endEditing(true)
-          
   }
-    
-    //MARK: Notification for keyboard. When keyboard showed, UI moving by the size of keyboard.
-     func registerForKeyboardNotications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(kbWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(kbWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    func removeKeyBoardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(kbWillShow), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(kbWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    @objc func kbWillShow(_ notification: Notification) {
-        let userInfo = notification.userInfo
-        let kbFrameSize = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-        scrollViewOut.contentOffset = CGPoint(x: 0.0, y: kbFrameSize?.height ?? 0.0)
-    }
-
-    @objc func kbWillHide() {
-        scrollViewOut.contentOffset = CGPoint.zero
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         //MARK - return backgroundColor for tabBar
         tabBarController?.tabBar.backgroundColor = .systemBackground
+        
         //MARK - used yeallowCorporativeColor for backgroundColor view because when user scrolling display, some space background have white color.
         view.backgroundColor = yeallowCorporativeColor
-        //Notification func for keyboard
+        
+        //MARK - Notification func for keyboard
         registerForKeyboardNotications()
     }
     
@@ -168,6 +159,30 @@ extension ContactsCompanyVC: UITextFieldDelegate {
         }
         return true
     }
+}
+
+//MARK: Notification for keyboard. When keyboard showed, UI moving by the size of keyboard.
+extension ContactsCompanyVC: NotiProtocol {
+    
+    func registerForKeyboardNotications() {
+       NotificationCenter.default.addObserver(self, selector: #selector(kbWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+       NotificationCenter.default.addObserver(self, selector: #selector(kbWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+   }
+   func removeKeyBoardNotifications() {
+       NotificationCenter.default.addObserver(self, selector: #selector(kbWillShow), name: UIResponder.keyboardWillHideNotification, object: nil)
+       NotificationCenter.default.addObserver(self, selector: #selector(kbWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+   }
+    
+    @objc func kbWillShow(_ notification: Notification) {
+        let userInfo = notification.userInfo
+        let kbFrameSize = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        scrollViewOut.contentOffset = CGPoint(x: 0.0, y: kbFrameSize?.height ?? 0.0)
+    }
+
+    @objc func kbWillHide() {
+        scrollViewOut.contentOffset = CGPoint.zero
+    }
+    
 }
 
 
