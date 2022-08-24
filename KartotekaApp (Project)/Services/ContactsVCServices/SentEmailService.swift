@@ -16,22 +16,25 @@ struct ModelUser {
 }
 
 class SentMailServices: UIViewController {
+    //MARK: Parametrs which figurate in message
     var name = ""
     var email = ""
     var message = ""
     
-    
+    //MARK: Func for naming user attributes
     func sentMessage(_ userInfo: ModelUser) {
         self.name = userInfo.name ?? "."
         self.email = userInfo.email ?? "."
         self.message = userInfo.message ?? "."
-    let mailComposeViewController = configureMailComposer()
+        let mailComposeViewController = configureMailComposer()
         if MFMailComposeViewController.canSendMail() {
             self.present(mailComposeViewController, animated: true, completion: nil)
         } else {
             print("Can't send email")
         }
     }
+    
+    //MARK: Set for sent adress message, setSubject and body
     func configureMailComposer() -> MFMailComposeViewController {
     let mailComposeVC = MFMailComposeViewController()
     mailComposeVC.mailComposeDelegate = self
