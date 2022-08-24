@@ -10,14 +10,17 @@ import MapKit
 
 protocol ContactsProtocol {
     
+    //For sent mail
     var user: ModelUser? { get set }
     func sentMessage()
-    func mapService(_ map: MKMapView)
     
+    //For mapService
+    func mapService(_ map: MKMapView)
+
 }
 
 final class ContactsVM: ContactsProtocol {
-   
+        
     //MARK: Services var
     private var sentEmailService = SentMailServices()
     
@@ -41,5 +44,4 @@ final class ContactsVM: ContactsProtocol {
         annotation.subtitle = "Аэродромная ул. 125, Минск"
         map.addAnnotation(annotation)
     }
-    
 }
