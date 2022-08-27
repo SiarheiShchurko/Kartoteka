@@ -43,10 +43,11 @@
 3) Третий экран - это экран "Контакты". Здесь юзер может воспользоваться формой обратной связи отправив электронное сообщение в компанию прямо из приложения. После успешной отправки приложение сообщит пользователю, что сообщение отправлено. Также на этом кэкране отражена вся информация по времени работы компании, указан адрес с отметкой на карте.
 ![Simulator Screen Shot - iPhone 11 - 2022-08-26 at 11 21 25](https://user-images.githubusercontent.com/101253596/187039225-b6a02e58-1a45-4a3e-a1f7-c57d236a6c1d.png)
 ![Simulator Screen Shot - iPhone 11 - 2022-08-26 at 11 21 36](https://user-images.githubusercontent.com/101253596/187040011-127eeb83-6c85-496e-b5dd-7a90bebe4d70.png)
-![Simulator Screen Shot - iPhone 11 - 2022-08-26 at 11 21 57](https://user-images.githubusercontent.com/101253596/187040017-1e80f15d-86b6-4d68-b41d-f0562b03792a.png)
+![Simulator Screen Shot - iPhone 11 - 2022-08-26 at 11 21 48](https://user-images.githubusercontent.com/101253596/187040123-c0f97fdf-9c5a-440a-aa12-830e435dce7d.png)
 
 
 4) Четвертый основной экран - это экран настроек профиля. Здесь пользователь вводит свои данные включая актуальный токен без которого приложение не будет выполнять свою основную задачу. Актальный токен пользователь берет личного кабинета веб версии сервиса. 
+
 ![Simulator Screen Shot - iPhone 11 - 2022-08-26 at 11 21 57](https://user-images.githubusercontent.com/101253596/187039334-93fcd828-4b5a-472c-b87c-2d8af778e0f3.png)
 Пользователь может поменять свои данные в любой удобный для этого момент путем нажатия кнопки "Изменить" 
 ![Simulator Screen Shot - iPhone 11 - 2022-08-26 at 11 22 08](https://user-images.githubusercontent.com/101253596/187039498-eaead669-9ce4-45f4-aa3d-0df77270840c.png)
