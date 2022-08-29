@@ -83,7 +83,7 @@ class SearchResultVC: UIViewController {
     
     //MARK: Func call when user enter miss unp or token
     func checkError() {
-        let alert = UIAlertController(title: "Информация не найдена", message: "1.Проверьте введенный УНП клиента;\n2.Перейдите в настройки профиля и проверьте Ваш актуальный токен;\n3.Также проверьте интернет соединение"
+        let alert = UIAlertController(title: "Информация не найдена", message: "1.Проверьте введенный УНП клиента;\n2.Перейдите в настройки профиля и проверьте Ваш актуальный токен;\n3.Дополнительно проверьте интернет соединение"
                                       , preferredStyle: .actionSheet)
                     let button = UIAlertAction(title: "Ок", style: .default, handler: {_ in
                         alert.dismiss(animated: true)} )
