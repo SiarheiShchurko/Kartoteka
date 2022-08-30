@@ -65,25 +65,32 @@ extension HistoryViewsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(HistoryViewTableVCell.self)", for: indexPath) as? HistoryViewTableVCell
         isSearching ? cell?.setUpForListInDataBase(historyVM.filtredClient[indexPath.row]) : cell?.setUpForListInDataBase(historyVM.client[indexPath.row])
-        //cell?.setUpForListInDataBase(historyVM.client[indexPath.row])
+     
         return cell ?? .init()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isSearching {
-        return historyVM.filtredClient.count
-        } else {
-        return historyVM.client.count
+        
+        isSearching ? historyVM.filtredClient.count : historyVM.client.count
+        
         }
-    }
   
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if let unp = Int(historyVM.client[indexPath.row].unp ?? "0") {
-            RootVM.unp = unp
+        
+        if isSearching {
+            if let unp = Int(historyVM.filtredClient[indexPath.row].unp ?? "0") {
+                RootVM.unp = unp
+            }
+            open(historyVM.filtredClient[indexPath.row])
+        } else {
+            if let unp = Int(historyVM.client[indexPath.row].unp ?? "0") {
+                RootVM.unp = unp
+            }
+            open(historyVM.client[indexPath.row])
         }
-        open(historyVM.client[indexPath.row])
-    }
+        }
+      
     
     //MARK: - Methods for edit cells (for delete)
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
