@@ -107,7 +107,9 @@ extension HistoryViewsVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+//MARK: extension for searchBarDelegate
 extension HistoryViewsVC: UISearchBarDelegate {
+    
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         historyVM.filtredClient.removeAll()
@@ -115,16 +117,16 @@ extension HistoryViewsVC: UISearchBarDelegate {
             print("empty search")
             return
         }
-        historyVM.client.forEach { element in
-            let text = searchText.lowercased()
-            let isArrayContain = element.name?.lowercased().range(of: text)
-            
-            if isArrayContain != nil {
-                print("Search complite")
-                historyVM.filtredClient.append(element)
-            }
-        }
-        print(historyVM.filtredClient)
+//        historyVM.client.forEach { element in
+//            let text = searchText.lowercased()
+//            let isArrayContain = element.name?.lowercased().range(of: text)
+//
+//            if isArrayContain != nil {
+//                print("Search complite")
+//                historyVM.filtredClient.append(element)
+//            }
+//        }
+//        print(historyVM.filtredClient)
         
         if searchBar.text == "" {
             isSearching = false
