@@ -2818,7 +2818,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="liU-ZA-9k5">
-                                <rect key="frame" x="0.0" y="303" width="414" height="559"/>
+                                <rect key="frame" x="0.0" y="354.5" width="414" height="507.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="HistoryViewTableVCell" id="grv-Kv-2V6" userLabel="HistoryViewTableVCell" customClass="HistoryViewTableVCell" customModule="Kartoteka_by" customModuleProvider="target">
@@ -2910,8 +2910,12 @@
                                     <constraint firstItem="8iz-jc-WMJ" firstAttribute="top" secondItem="R8P-UF-mcb" secondAttribute="top" id="VXy-ql-o3I"/>
                                 </constraints>
                             </view>
+                            <searchBar contentMode="redraw" placeholder="Введите имя клиента" translatesAutoresizingMaskIntoConstraints="NO" id="F8C-dt-Ecp">
+                                <rect key="frame" x="0.0" y="275" width="414" height="51"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="История запросов:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ExH-Fd-M1n">
-                                <rect key="frame" x="8" y="275" width="398" height="21"/>
+                                <rect key="frame" x="8" y="330" width="398" height="20.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -2920,17 +2924,23 @@
                         <viewLayoutGuide key="safeArea" id="puE-dp-WgP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ExH-Fd-M1n" firstAttribute="top" secondItem="R8P-UF-mcb" secondAttribute="bottom" constant="4" id="42V-ay-kMd"/>
+                            <constraint firstAttribute="trailing" secondItem="F8C-dt-Ecp" secondAttribute="trailing" id="0eF-yj-Scl"/>
                             <constraint firstItem="puE-dp-WgP" firstAttribute="bottom" secondItem="liU-ZA-9k5" secondAttribute="bottom" id="9nG-G6-pll"/>
-                            <constraint firstItem="ExH-Fd-M1n" firstAttribute="leading" secondItem="puE-dp-WgP" secondAttribute="leading" constant="8" id="Fs8-fx-Gcq"/>
+                            <constraint firstItem="F8C-dt-Ecp" firstAttribute="top" secondItem="R8P-UF-mcb" secondAttribute="bottom" constant="4" id="ANS-dy-QoB"/>
+                            <constraint firstItem="liU-ZA-9k5" firstAttribute="top" secondItem="ExH-Fd-M1n" secondAttribute="bottom" constant="4" id="CXJ-fx-RGC"/>
+                            <constraint firstItem="F8C-dt-Ecp" firstAttribute="leading" secondItem="puE-dp-WgP" secondAttribute="leading" id="HaJ-Vm-tD3"/>
+                            <constraint firstItem="ExH-Fd-M1n" firstAttribute="top" secondItem="F8C-dt-Ecp" secondAttribute="bottom" constant="4" id="M7a-kE-G4T"/>
                             <constraint firstItem="liU-ZA-9k5" firstAttribute="leading" secondItem="puE-dp-WgP" secondAttribute="leading" id="MLx-rH-OCc"/>
+                            <constraint firstItem="puE-dp-WgP" firstAttribute="trailing" secondItem="ExH-Fd-M1n" secondAttribute="trailing" constant="8" id="Sum-Hj-7zL"/>
                             <constraint firstItem="puE-dp-WgP" firstAttribute="trailing" secondItem="liU-ZA-9k5" secondAttribute="trailing" id="Tua-tr-iQW"/>
-                            <constraint firstItem="puE-dp-WgP" firstAttribute="trailing" secondItem="ExH-Fd-M1n" secondAttribute="trailing" constant="8" id="oYA-Sk-d33"/>
-                            <constraint firstItem="liU-ZA-9k5" firstAttribute="top" secondItem="R8P-UF-mcb" secondAttribute="bottom" constant="32" id="vjp-gc-bRQ"/>
+                            <constraint firstItem="F8C-dt-Ecp" firstAttribute="trailing" secondItem="puE-dp-WgP" secondAttribute="trailing" id="VSn-HO-PLa"/>
+                            <constraint firstItem="F8C-dt-Ecp" firstAttribute="leading" secondItem="9U8-yw-4Eq" secondAttribute="leading" id="qJv-6K-m4a"/>
+                            <constraint firstItem="ExH-Fd-M1n" firstAttribute="leading" secondItem="puE-dp-WgP" secondAttribute="leading" constant="8" id="uMc-4D-flV"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="headerView" destination="R8P-UF-mcb" id="wkk-o0-m9H"/>
+                        <outlet property="searchBarOut" destination="F8C-dt-Ecp" id="6Qg-ga-aV0"/>
                         <outlet property="tableView" destination="liU-ZA-9k5" id="LBy-v8-Yte"/>
                         <outlet property="titleHistoryLabel" destination="ExH-Fd-M1n" id="GyM-W2-dqi"/>
                     </connections>

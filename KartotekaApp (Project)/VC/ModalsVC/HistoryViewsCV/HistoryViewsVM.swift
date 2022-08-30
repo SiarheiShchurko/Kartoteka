@@ -9,14 +9,18 @@ import Foundation
 import UIKit
 protocol HistoryViewsProtocol {
     var client: [History] { get set }
+    var filtredClient: [History] { get set }
     var update: (() -> Void)? { get set }
     func showClients()
 }
 
 final class HistoryVM: HistoryViewsProtocol {
     
-    //MARK: Client array 
+    //MARK: Client array
+    
     var client: [History] = []
+    
+    var filtredClient: [History] = []
     
     var update: (() -> Void)?
     
