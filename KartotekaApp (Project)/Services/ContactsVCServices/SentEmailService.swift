@@ -38,7 +38,7 @@ class SentMailServices: UIViewController {
     func configureMailComposer() -> MFMailComposeViewController {
     let mailComposeVC = MFMailComposeViewController()
     mailComposeVC.mailComposeDelegate = self
-    mailComposeVC.setToRecipients(["pridemc@yandex.ru"])
+    mailComposeVC.setToRecipients(["info@kartoteka.by"])
         mailComposeVC.setSubject("Запрос через приложение Картотека IOS")
         mailComposeVC.setMessageBody("Cообщение: \(self.message)\n Имя клиента: \(self.name)\n Емейл клиента: \(self.email)", isHTML: false)
         print(name)
