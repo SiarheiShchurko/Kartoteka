@@ -10,7 +10,7 @@ import Foundation
 //MARK: Protocol for VM
 protocol CountryListProtocol {
     
-    var countrysArray: [String] { get }
+    var countrysArray: [ String ] { get }
     
 }
 

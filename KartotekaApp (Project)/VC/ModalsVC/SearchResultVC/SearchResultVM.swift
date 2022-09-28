@@ -46,11 +46,11 @@ final class SearchResultVM: SearchProtocol {
     
     //MARK: Load data in array
     func loadInfo() {
-        networkService.loadInfo { [self] complition in
+        networkService.loadInfo { [ weak self ] (complition) in
             switch complition {
             case .success(let inf):
-                self.infoEgrArray.append(inf)
-                timer?.invalidate()
+                self?.infoEgrArray.append(inf)
+                self?.timer?.invalidate()
             default: break
             }
         }
